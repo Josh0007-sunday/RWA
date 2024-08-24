@@ -1,0 +1,255 @@
+{
+    "version": "0.1.0",
+    "name": "rwa_tokenization",
+    "instructions": [
+        {
+            "name": "initializeRwa",
+            "accounts": [
+                {
+                    "name": "rwaMetadata",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "creator",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "mint",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "rent",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "uri",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "totalSupply",
+                    "type": "u64"
+                },
+                {
+                    "name": "pricePerFraction",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "mintRwaTokens",
+            "accounts": [
+                {
+                    "name": "mint",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "rwaMetadata",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "creator",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "buyRwaFraction",
+            "accounts": [
+                {
+                    "name": "rwaMetadata",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "rwaTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "buyerRwaTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "buyerTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "treasuryTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "buyer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "creator",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "mint",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "paymentMint",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "updateRwaMetadata",
+            "accounts": [
+                {
+                    "name": "rwaMetadata",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "creator",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "newPrice",
+                    "type": {
+                        "option": "u64"
+                    }
+                },
+                {
+                    "name": "newUri",
+                    "type": {
+                        "option": "string"
+                    }
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "RWAMetadata",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "uri",
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "creator",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "mint",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "totalSupply",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "pricePerFraction",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "currentHolders",
+                        "type": "u64"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "ExceedsTotalSupply",
+            "msg": "The amount exceeds the total supply"
+        },
+        {
+            "code": 6001,
+            "name": "CalculationError",
+            "msg": "Calculation error"
+        },
+        {
+            "code": 6002,
+            "name": "UriTooLong",
+            "msg": "URI is too long (max 200 characters)"
+        },
+        {
+            "code": 6003,
+            "name": "NameTooLong",
+            "msg": "Name is too long (max 50 characters)"
+        }
+    ]
+}
